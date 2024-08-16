@@ -13,15 +13,15 @@ import java.util.List;
 public class UserDBHandler implements DBHandler<User, String> {
     // Static fields:
     private static final String GET_SQL = "SELECT * FROM user\n" +
-            "WHERE username=?";
+            " WHERE username=?";
     private static final String GET_ALL_SQL = "SELECT * FROM user";
     private static final String INSERT_SQL = "INSERT INTO user(username, password, fullName, role)\n" +
-            "VALUES (?, ?, ?, ?)";
+            " VALUES (?, ?, ?, ?)";
     private static final String UPDATE_SQL = "UPDATE user\n" +
-            "SET password=?, fullName=?, role=?\n" +
-            "WHERE username=?";
+            " SET password=?, fullName=?, role=?\n" +
+            " WHERE username=?";
     private static final String DELETE_SQL = "DELETE user\n" +
-            "WHERE username=?";
+            " WHERE username=?";
 
     private static UserDBHandler instance;
 
