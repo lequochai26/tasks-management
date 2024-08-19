@@ -10,7 +10,7 @@
 
 <div class="w-100 h-100 d-flex flex-column" style="height: fit-content;">
 <%--    Action bar--%>
-    <div class="d-flex flex-row">
+    <div class="d-flex flex-row border-bottom">
 <%--        Search area--%>
         <div style="width: fit-content;" class="p-3">
             <form action="#" method="get">
@@ -37,7 +37,7 @@
     </div>
 
 <%--    Datatable--%>
-    <div class="flex-grow-1 table-responsive">
+    <div class="flex-grow-1 table-responsive p-3">
         <table class="table">
             <thead>
             <tr>
