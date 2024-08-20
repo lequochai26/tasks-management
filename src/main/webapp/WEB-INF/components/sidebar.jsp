@@ -22,7 +22,7 @@
             Khối công việc
         </p>
 
-        <a href="#" class="list-group-item list-group-item-action">
+        <a href="#" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('your-tasks.jsp') ? 'active' : ''}">
             <i class="bi bi-clipboard"></i>
             Công việc của bạn
         </a>
@@ -31,12 +31,12 @@
             Khối quản lý
         </p>
 
-        <a href="#" class="list-group-item list-group-item-action">
+        <a href="#" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('tasks.jsp') ? 'active' : ''}">
             <i class="bi bi-clipboard"></i>
             Quản lý công việc
         </a>
 
-        <a href="#" class="list-group-item list-group-item-action">
+        <a href="#" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('users.jsp') ? 'active' : ''}">
             <i class="bi bi-people"></i>
             Quản lý người dùng
         </a>
