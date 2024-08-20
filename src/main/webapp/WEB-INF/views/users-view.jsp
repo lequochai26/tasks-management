@@ -29,7 +29,9 @@
 <%--        Create area--%>
         <div class="flex-grow-1 text-end p-3">
 <%--            Add button--%>
-            <button class="btn btn-success btn-add">
+            <button class="btn btn-success btn-add"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addUserModal">
                 <i class="bi bi-plus"></i>
                 Thêm người dùng
             </button>
@@ -70,7 +72,8 @@
                 <td style="vertical-align: middle;">
                     <button class="btn btn-primary"
                             data-bs-toggle="tooltip"
-                            title="Cập nhật">
+                            title="Cập nhật"
+                            onclick="showEditUserModal()">
                         <i class="bi bi-pencil"></i>
                     </button>
                     <button class="ms-2 btn btn-danger"
@@ -94,7 +97,8 @@
                 <td style="vertical-align: middle;">
                     <button class="btn btn-primary"
                             data-bs-toggle="tooltip"
-                            title="Cập nhật">
+                            title="Cập nhật"
+                            onclick="showEditUserModal()">
                         <i class="bi bi-pencil"></i>
                     </button>
                     <button class="ms-2 btn btn-danger"
@@ -118,7 +122,8 @@
                 <td style="vertical-align: middle;">
                     <button class="btn btn-primary"
                             data-bs-toggle="tooltip"
-                            title="Cập nhật">
+                            title="Cập nhật"
+                            onclick="showEditUserModal()">
                         <i class="bi bi-pencil"></i>
                     </button>
                     <button class="ms-2 btn btn-danger"
@@ -166,7 +171,8 @@
                 <td style="vertical-align: middle;">
                     <button class="btn btn-primary"
                             data-bs-toggle="tooltip"
-                            title="Cập nhật">
+                            title="Cập nhật"
+                            onclick="showEditUserModal()">
                         <i class="bi bi-pencil"></i>
                     </button>
                     <button class="ms-2 btn btn-danger"
@@ -180,3 +186,142 @@
         </table>
     </div>
 </div>
+
+<%-- Add User modal --%>
+<div class="modal fade" id="addUserModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+<%--            Header--%>
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm người dùng</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+<%--            Body--%>
+            <div class="modal-body">
+<%--                Username input--%>
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control"
+                           id="username"
+                           placeholder="Tên đăng nhập"
+                           name="username" />
+                    <label for="username">Tên đăng nhập</label>
+                </div>
+
+<%--                Password input--%>
+                <div class="form-floating mb-3 mt-3">
+                    <input type="password" class="form-control"
+                           id="password"
+                           placeholder="Mật khẩu"
+                           name="password" />
+                    <label for="password">Mật khẩu</label>
+                </div>
+
+<%--                Fullname input--%>
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control"
+                           id="fullName"
+                           placeholder="Họ và tên"
+                           name="fullName" />
+                    <label for="fullName">Họ và tên</label>
+                </div>
+
+<%--                Role--%>
+                <div class="mb-3">
+                    <select id="role" name="role" class="form-select py-3">
+                        <option value="DEVELOPER">Lập trình viên</option>
+                        <option value="QUALITY_CONTROL">Kiểm thử viên</option>
+                        <option value="ADMIN">Quản lý</option>
+                    </select>
+                </div>
+            </div>
+
+<%--            Footer--%>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger"
+                        data-bs-dismiss="modal">
+                    Hủy
+                </button>
+
+                <button type="button" class="btn btn-success btn-add ms-3">
+                    Thêm
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%-- Edit User modal --%>
+<div class="modal fade" id="editUserModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <%--            Header--%>
+            <div class="modal-header">
+                <h4 class="modal-title">Cập nhật thông tin người dùng</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <%--            Body--%>
+            <div class="modal-body">
+                <%--                Username input--%>
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control"
+                           id="edit_username"
+                           placeholder="Tên đăng nhập"
+                           name="username"
+                           value="lequochai"
+                           disabled />
+                    <label for="edit_username">Tên đăng nhập</label>
+                </div>
+
+                <%--                Password input--%>
+                <div class="form-floating mb-3 mt-3">
+                    <input type="password" class="form-control"
+                           id="edit_password"
+                           placeholder="Mật khẩu"
+                           name="password"
+                           value="Abc123456" />
+                    <label for="edit_password">Mật khẩu</label>
+                </div>
+
+                <%--                Fullname input--%>
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control"
+                           id="edit_fullName"
+                           placeholder="Họ và tên"
+                           name="fullName"
+                           value="Lê Quốc Hải" />
+                    <label for="edit_fullName">Họ và tên</label>
+                </div>
+
+                <%--                Role--%>
+                <div class="mb-3">
+                    <select id="edit_role" name="role" class="form-select py-3">
+                        <option value="DEVELOPER">Lập trình viên</option>
+                        <option value="QUALITY_CONTROL">Kiểm thử viên</option>
+                        <option value="ADMIN" selected>Quản lý</option>
+                    </select>
+                </div>
+            </div>
+
+            <%--            Footer--%>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger"
+                        data-bs-dismiss="modal">
+                    Hủy
+                </button>
+
+                <button type="button" class="btn btn-primary btn-add ms-3">
+                    Cập nhật
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showEditUserModal() {
+        const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+        editUserModal.show();
+    }
+</script>
