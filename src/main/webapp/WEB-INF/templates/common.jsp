@@ -32,17 +32,17 @@
 <%--    Sidebar URL--%>
 <c:url var="sidebarUrl" value="../components/sidebar.jsp" />
 
-<div class="d-flex flex-column vh-100">
+<div class="d-flex flex-column vh-100 overflow-y-hidden">
 <%--    Header--%>
     <jsp:include page="${headerUrl}" />
 
 <%--    Body--%>
-    <div class="flex-grow-1 d-flex flex-row">
+    <div class="flex-grow-1 d-flex flex-row overflow-y-hidden">
 <%--        Sidebar--%>
         <jsp:include page="${sidebarUrl}" />
 
 <%--        View--%>
-        <div class="flex-grow-1">
+        <div class="flex-grow-1 overflow-y-hidden">
 <%--            Default content--%>
             <c:if test="${empty param.viewUrl}">
                 <div class="w-100 h-100 p-2 d-flex flex-column align-items-center justify-content-center">
