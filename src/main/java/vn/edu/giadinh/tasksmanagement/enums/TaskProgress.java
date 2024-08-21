@@ -4,6 +4,7 @@ public enum TaskProgress {
     ANALYZING,
     DEVELOPING,
     TEST_ATTEMPTING,
+    TESTING,
     TEST_FAILED,
     TEST_SUCCESS
 }
