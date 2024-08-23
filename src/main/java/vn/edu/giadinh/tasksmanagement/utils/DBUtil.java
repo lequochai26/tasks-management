@@ -8,9 +8,9 @@ import java.sql.SQLException;
 
 public class DBUtil {
     // Static fields:
-    private static String url = "jdbc:mysql://localhost:3306/tasksmanagement";
-    private static String username = "root";
-    private static String password = "Abc123456";
+    private static final String url = EnvUtil.getEnv("DB_URL");
+    private static final String username = EnvUtil.getEnv("DB_USERNAME");
+    private static final String password = EnvUtil.getEnv("DB_PASSWORD");
 
     // Static methods:
     public static Connection connect(String url, String username, String password) throws SQLException {
