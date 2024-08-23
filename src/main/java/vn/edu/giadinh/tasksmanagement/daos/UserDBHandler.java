@@ -1,8 +1,10 @@
 package vn.edu.giadinh.tasksmanagement.daos;
 
+import lombok.experimental.ExtensionMethod;
 import vn.edu.giadinh.tasksmanagement.converter.UserConverter;
 import vn.edu.giadinh.tasksmanagement.models.User;
 import vn.edu.giadinh.tasksmanagement.utils.DBUtil;
+import vn.edu.giadinh.tasksmanagement.utils.Extension;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDBHandler implements DBHandler<User, String> {
+@ExtensionMethod(Extension.class)
+public class UserDBHandler implements SearchableDBHandler<User, String> {
     // Static fields:
     private static final String GET_SQL = "SELECT * FROM user\n" +
             " WHERE username=?";
@@ -22,6 +25,8 @@ public class UserDBHandler implements DBHandler<User, String> {
             " WHERE username=?";
     private static final String DELETE_SQL = "DELETE user\n" +
             " WHERE username=?";
+    private static final String SEARCH_SQL = "SELECT * FROM user" +
+            " WHERE username LIKE ? or fullName LIKE ?";
 
     private static UserDBHandler instance;
 
@@ -163,6 +168,43 @@ public class UserDBHandler implements DBHandler<User, String> {
 
                     // Thực thi lệnh SQL
                     statement.executeUpdate();
+                }
+        );
+    }
+
+    @Override
+    public List<User> search(String keyword) throws SQLException {
+        if (keyword.isNullOrEmpty()) {
+            return getAll();
+        }
+
+        String pattern = "%" + keyword + "%";
+
+        return DBUtil.executeQuery(
+                connection -> {
+                    // Tạo lệnh SQL
+                    PreparedStatement statement = connection.prepareStatement(SEARCH_SQL);
+
+                    // Gán tham số cho statement
+                    statement.setString(1, pattern);
+                    statement.setString(2, pattern);
+
+                    // Thực thi truy vấn
+                    ResultSet table = statement.executeQuery();
+
+                    // Khởi tạo danh sách người dùng
+                    List<User> users = new ArrayList<>();
+
+                    // Chuyển đổi table sang users
+                    while (table.next()) {
+                        users.add(
+                                UserConverter.getInstance()
+                                        .convert(table)
+                        );
+                    }
+
+                    // Trả về danh sách người dùng
+                    return users;
                 }
         );
     }
