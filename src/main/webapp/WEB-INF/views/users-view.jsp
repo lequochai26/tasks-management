@@ -16,7 +16,8 @@
             <form action="#" method="get">
                 <div class="input-group" style="width: 500px;">
                     <input type="text" name="keyword" class="form-control"
-                           placeholder="Tên đăng nhập / vai trò / họ và tên" />
+                           placeholder="Tên đăng nhập / vai trò / họ và tên"
+                           value="${param.keyword}"/>
                     <button type="submit" class="btn btn-primary"
                             data-bs-toggle="tooltip"
                             title="Tìm kiếm">
@@ -59,129 +60,42 @@
             </thead>
 
             <tbody>
-            <tr>
-                <td style="vertical-align: middle;">
-                    lequochai
-                </td>
-                <td style="vertical-align: middle;">
-                    Lê Quốc Hải
-                </td>
-                <td style="vertical-align: middle;">
-                    ADMIN
-                </td>
-                <td style="vertical-align: middle;">
-                    <button class="btn btn-primary"
-                            data-bs-toggle="tooltip"
-                            title="Cập nhật"
-                            onclick="showEditUserModal()">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="ms-2 btn btn-danger"
-                            data-bs-toggle="tooltip"
-                            title="Xóa">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </td>
-            </tr>
+            <c:if test="${not empty requestScope.users}">
+                <c:forEach var="user" items="${requestScope.users}">
+                    <tr>
+                        <td style="vertical-align: middle;">
+                            ${user.username}
+                        </td>
+                        <td style="vertical-align: middle;">
+                            ${user.fullName}
+                        </td>
+                        <td style="vertical-align: middle;">
+                            ${user.role}
+                        </td>
+                        <td style="vertical-align: middle;">
+                            <button class="btn btn-primary"
+                                    data-bs-toggle="tooltip"
+                                    title="Cập nhật"
+                                    onclick="showEditUserModal()">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="ms-2 btn btn-danger"
+                                    data-bs-toggle="tooltip"
+                                    title="Xóa">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </c:if>
 
-            <tr>
-                <td style="vertical-align: middle;">
-                    nguyenhoangkhuyen
-                </td>
-                <td style="vertical-align: middle;">
-                    Nguyễn Hoàng Khuyến
-                </td>
-                <td style="vertical-align: middle;">
-                    DEVELOPER
-                </td>
-                <td style="vertical-align: middle;">
-                    <button class="btn btn-primary"
-                            data-bs-toggle="tooltip"
-                            title="Cập nhật"
-                            onclick="showEditUserModal()">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="ms-2 btn btn-danger"
-                            data-bs-toggle="tooltip"
-                            title="Xóa">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
-                <td style="vertical-align: middle;">
-                    nguyenthithanhhiue
-                </td>
-                <td style="vertical-align: middle;">
-                    Nguyễn Thị Thanh Hiếu
-                </td>
-                <td style="vertical-align: middle;">
-                    DEVELOPER
-                </td>
-                <td style="vertical-align: middle;">
-                    <button class="btn btn-primary"
-                            data-bs-toggle="tooltip"
-                            title="Cập nhật"
-                            onclick="showEditUserModal()">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="ms-2 btn btn-danger"
-                            data-bs-toggle="tooltip"
-                            title="Xóa">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
-                <td style="vertical-align: middle;">
-                    vongchutan
-                </td>
-                <td style="vertical-align: middle;">
-                    Vòng Chủ Tân
-                </td>
-                <td style="vertical-align: middle;">
-                    QUALITY_CONTROL
-                </td>
-                <td style="vertical-align: middle;">
-                    <button class="btn btn-primary"
-                            data-bs-toggle="tooltip"
-                            title="Cập nhật">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="ms-2 btn btn-danger"
-                            data-bs-toggle="tooltip"
-                            title="Xóa">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
-                <td style="vertical-align: middle;">
-                    doanghongquihao
-                </td>
-                <td style="vertical-align: middle;">
-                    Đoàn Hồng Quí Hào
-                </td>
-                <td style="vertical-align: middle;">
-                    QUALITY_CONTROL
-                </td>
-                <td style="vertical-align: middle;">
-                    <button class="btn btn-primary"
-                            data-bs-toggle="tooltip"
-                            title="Cập nhật"
-                            onclick="showEditUserModal()">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="ms-2 btn btn-danger"
-                            data-bs-toggle="tooltip"
-                            title="Xóa">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </td>
-            </tr>
+            <c:if test="${empty requestScope.users}">
+                <tr>
+                    <td colspan="4">
+                        Không có dữ liệu
+                    </td>
+                </tr>
+            </c:if>
             </tbody>
         </table>
     </div>
