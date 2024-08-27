@@ -1,8 +1,6 @@
 package vn.edu.giadinh.tasksmanagement.servlet;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import java.io.IOException;
 
 @WebServlet("/home")
 public class HomeServlet extends BaseServlet {
@@ -13,7 +11,15 @@ public class HomeServlet extends BaseServlet {
 
     // Methods:
     @Override
-    protected void doGet(HttpHandler handler) throws ServletException, IOException {
-        handler.forward("/WEB-INF/index.jsp");
+    protected void doGet(HttpHandler handler) throws Exception {
+        // Not logged in case
+        if (!isLoggedIn(handler)) {
+            handler.redirect(handler.makeRelativePath("/login"));
+            return;
+        }
+
+        // Logged in case
+        // Forward to home.jsp page
+        handler.forward(getViewUrl("index.jsp"));
     }
 }
