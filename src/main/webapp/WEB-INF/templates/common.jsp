@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +23,61 @@
             border-color: #0eb90f;
         }
     </style>
+
+<%--    CKEditor--%>
+    <link rel="stylesheet" href="${contextPath}/ckeditor5/ckeditor5.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "ckeditor5": "${contextPath}/ckeditor5/ckeditor5.js",
+                "ckeditor5/": "${contextPath}/ckeditor5/"
+            }
+        }
+    </script>
+    <script type="module">
+        import {
+            ClassicEditor,
+            Essentials,
+            Paragraph,
+            Bold,
+            Italic,
+            Font,
+            Strikethrough
+        } from 'ckeditor5';
+
+        ClassicEditor
+            .create( document.querySelector( '.use-ckeditor' ), {
+                plugins: [ Essentials, Paragraph, Bold, Italic, Font, Strikethrough ],
+                // toolbar: [
+                //     'undo', 'redo', '|', 'bold', 'italic', '|',
+                //     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+                // ]
+                toolbar: {
+                    items: [
+                        'undo', 'redo',
+                        '|',
+                        'heading',
+                        '|',
+                        'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+                        '|',
+                        'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+                        '|',
+                        'link', 'uploadImage', 'blockQuote', 'codeBlock',
+                        '|',
+                        'alignment',
+                        '|',
+                        'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+                    ],
+                    shouldNotGroupWhenFull: true
+                }
+            } )
+            .then( editor => {
+                window.editor = editor;
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 </head>
 
 <body>
