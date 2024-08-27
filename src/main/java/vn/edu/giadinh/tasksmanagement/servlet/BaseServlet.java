@@ -35,7 +35,7 @@ public class BaseServlet extends HttpServlet {
     // Methods:
     @Override
     protected final void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpHandler handler = new HttpHandler(req, resp);
+        HttpHandler handler = generateHandler(req, resp);
 
         safeExecute(
                 () -> {
@@ -51,7 +51,7 @@ public class BaseServlet extends HttpServlet {
 
     @Override
     protected final void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpHandler handler = new HttpHandler(req, resp);
+        HttpHandler handler = generateHandler(req, resp);
 
         safeExecute(
                 () -> {
@@ -67,7 +67,7 @@ public class BaseServlet extends HttpServlet {
 
     @Override
     protected final void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpHandler handler = new HttpHandler(req, resp);
+        HttpHandler handler = generateHandler(req, resp);
 
         safeExecute(
                 () -> {
@@ -83,7 +83,7 @@ public class BaseServlet extends HttpServlet {
 
     @Override
     protected final void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpHandler handler = new HttpHandler(req, resp);
+        HttpHandler handler = generateHandler(req, resp);
 
         safeExecute(
                 () -> {
@@ -148,5 +148,26 @@ public class BaseServlet extends HttpServlet {
             e.printStackTrace();
             ex.call();
         }
+    }
+
+    private HttpHandler generateHandler(HttpServletRequest request, HttpServletResponse response) {
+        HttpHandler handler = new HttpHandler(request, response);
+
+        safeExecute(
+                () -> {
+                    try {
+                        handler.putRequest("user", getLoggedInUser(handler));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                },
+                () -> {}
+        );
+
+        return handler;
+    }
+
+    protected String getViewUrl(String view) {
+        return ("/WEB-INF/" + view).replace("//", "/");
     }
 }
