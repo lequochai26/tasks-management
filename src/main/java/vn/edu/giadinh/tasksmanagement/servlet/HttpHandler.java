@@ -2,15 +2,20 @@ package vn.edu.giadinh.tasksmanagement.servlet;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.experimental.ExtensionMethod;
+import vn.edu.giadinh.tasksmanagement.utils.Extension;
 import vn.edu.giadinh.tasksmanagement.utils.Function;
 import vn.edu.giadinh.tasksmanagement.utils.Supplier;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
+@ExtensionMethod(Extension.class)
 public class HttpHandler {
     // Static fields:
     public static final String LOGGED_IN_USER_KEY = "user";
@@ -84,6 +89,39 @@ public class HttpHandler {
     public String getContextPath() {
         return safeSupply(
                 () -> request.getContextPath()
+        );
+    }
+
+    public String makeRelativePath(String path) {
+        return safeSupply(
+                () -> getContextPath() + path
+        );
+    }
+
+    public void addMessage(String message) {
+        safeExecute(
+                () -> {
+                    List<String> messages = retrieveRequest("messages", List.class);
+
+                    if (messages.isNullOrEmpty()) {
+                        messages = new ArrayList<>();
+                        putRequest("messages", messages);
+                    }
+
+                    messages.add(message);
+                }
+        );
+    }
+
+    public Object retrieveRequest(String key) {
+        return safeSupply(
+                () -> request.getAttribute(key)
+        );
+    }
+
+    public <T> T retrieveRequest(String key, Class<T> returnType) {
+        return safeSupply(
+                () -> returnType.cast(retrieveRequest(key))
         );
     }
 
