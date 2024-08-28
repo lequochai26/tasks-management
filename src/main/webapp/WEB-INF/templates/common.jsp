@@ -121,6 +121,9 @@
     </div>
 </div>
 
+<%-- User setting dialog --%>
+<jsp:include page="../components/user-setting-dialog.jsp" />
+
 </body>
 </html>
 
