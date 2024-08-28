@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <style>
     #header-title a {
         text-decoration: none;
@@ -40,17 +42,19 @@
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
                     style="font-size: 17px;">
                 <i class="bi bi-person"></i>
-                <c:out value="Lê Quốc Hải" />
+                <c:out value="${requestScope.user.fullName}" />
             </button>
             <ul class="dropdown-menu">
                 <li>
-                    <a class="dropdown-item" href="#">
-                        <i class="bi bi-wrench"></i>
+                    <button class="dropdown-item"
+                            data-bs-toggle="modal"
+                            data-bs-target="#user-setting-dialog">
+                        <i class="bi bi-gear"></i>
                         <c:out value="Cài đặt" />
-                    </a>
+                    </button>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="${contextPath}/logout">
                         <i class="bi bi-door-open"></i>
                         <c:out value="Đăng xuất" />
                     </a>
