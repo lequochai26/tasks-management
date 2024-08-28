@@ -54,7 +54,7 @@
                     </button>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="${contextPath}/logout">
+                    <a class="dropdown-item" href="${contextPath}/auth?action=logout">
                         <i class="bi bi-door-open"></i>
                         <c:out value="Đăng xuất" />
                     </a>

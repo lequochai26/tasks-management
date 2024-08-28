@@ -45,7 +45,7 @@
 <body>
     <div class="vw-100 vh-100 d-flex align-items-center justify-content-center">
         <div style="height: fit-content; width: 450px;" class="border pt-4 ps-4 pe-4">
-            <form action="${contextPath}/login" method="post">
+            <form action="${contextPath}/auth?action=login" method="post">
                 <div class="bg-primary p-3 rounded-2 mb-3">
                     <h3 class="text-light">
                         Quản lý công việc
