@@ -1,5 +1,6 @@
 package vn.edu.giadinh.tasksmanagement.servlet;
 
+import vn.edu.giadinh.tasksmanagement.Constants;
 import vn.edu.giadinh.tasksmanagement.enums.UserRole;
 import vn.edu.giadinh.tasksmanagement.models.User;
 
@@ -18,9 +19,9 @@ public class UsersServlet extends BaseServlet {
     @Override
     protected void doGet(HttpHandler handler) throws Exception {
         // No permission case
-        if (!hasPermission(handler, UserRole.ADMIN)) {
-            handler.addMessage("Bạn không có quyền truy cập vào trang này!");
-            handler.forward("/login");
+        if (
+                !validatePermission(handler, UserRole.ADMIN, Constants.MSG_ACCESS_DENIED)
+        ) {
             return;
         }
 
