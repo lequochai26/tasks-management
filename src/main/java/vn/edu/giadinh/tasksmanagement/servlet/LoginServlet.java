@@ -22,14 +22,14 @@ public class LoginServlet extends BaseServlet {
         if (isLoggedIn(handler)) {
             // Forward back to home page
             handler.addMessage(Constants.MSG_ALREADY_LOGGED_IN);
-            handler.forward("/home");
+            showHomeView(handler);
 
             // Exit the flow
             return;
         }
 
         // Forward to login.jsp page
-        handler.forward(getViewUrl("login.jsp"));
+        showLoginView(handler);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class LoginServlet extends BaseServlet {
         // Username or password null case
         if (username.isNullOrEmpty() || password.isNullOrEmpty()) {
             handler.addMessage(Constants.MSG_INFORMATION_REQUIRED);
-            forwardToLogin(handler);
+            showLoginView(handler);
             return;
         }
 
@@ -52,7 +52,7 @@ public class LoginServlet extends BaseServlet {
         user.ifNull(
                 () -> {
                     handler.addMessage(Constants.MSG_USER_NOT_FOUND);
-                    forwardToLogin(handler);
+                    showLoginView(handler);
                 }
         );
 
@@ -62,7 +62,7 @@ public class LoginServlet extends BaseServlet {
                     // Incorrect password case
                     if (!password.equals(user.getPassword())) {
                         handler.addMessage(Constants.MSG_LOGIN_INVALID);
-                        forwardToLogin(handler);
+                        showLoginView(handler);
                         return;
                     }
 
@@ -71,9 +71,5 @@ public class LoginServlet extends BaseServlet {
                     handler.redirect(handler.makeRelativePath("/home"));
                 }
         );
-    }
-
-    private void forwardToLogin(HttpHandler handler) {
-        handler.forward("/WEB-INF/login.jsp");
     }
 }
