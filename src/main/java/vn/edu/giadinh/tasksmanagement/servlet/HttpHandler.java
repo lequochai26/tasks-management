@@ -164,4 +164,17 @@ public class HttpHandler {
                 }
         );
     }
+
+    public void removeSession(String key) {
+        safeSessionExecute(
+                () -> request.getSession()
+                        .removeAttribute(key)
+        );
+    }
+
+    public String getHeader(String key) {
+        return safeSupply(
+                () -> request.getHeader(key)
+        );
+    }
 }
