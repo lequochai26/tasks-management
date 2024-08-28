@@ -21,6 +21,10 @@ import java.util.Arrays;
 
 @ExtensionMethod(Extension.class)
 public class BaseServlet extends HttpServlet {
+    // Static fields:
+    public static final String HOME_VIEW_NAME = "index.jsp";
+    public static final String LOGIN_VIEW_NAME = "login.jsp";
+
     // Fields:
     protected SearchableDBHandler<User, String> userDBHandler;
     protected DBHandler<Task, Integer> taskDBHandler;
@@ -169,5 +173,25 @@ public class BaseServlet extends HttpServlet {
 
     protected String getViewUrl(String view) {
         return ("/WEB-INF/" + view).replace("//", "/");
+    }
+
+    protected void showView(HttpHandler handler, String view) {
+        handler.forward(getViewUrl(view));
+    }
+
+    protected void showHomeView(HttpHandler handler) {
+        showView(handler, HOME_VIEW_NAME);
+    }
+
+    protected void showLoginView(HttpHandler handler) {
+        showView(handler, LOGIN_VIEW_NAME);
+    }
+
+    protected void visitView(HttpHandler handler, String view) {
+        handler.redirect(getViewUrl(view));
+    }
+
+    protected void visitHomeView(HttpHandler handler) {
+        visitView(handler, HOME_VIEW_NAME);
     }
 }
