@@ -29,18 +29,20 @@
             Công việc của bạn
         </a>
 
-        <p class="list-group-item fw-bold" style="margin: 0;">
-            Khối quản lý
-        </p>
+        <c:if test="${requestScope.user.role.name() eq 'ADMIN'}">
+            <p class="list-group-item fw-bold" style="margin: 0;">
+                Khối quản lý
+            </p>
 
-        <a href="${contextPath}/tasks" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('tasks.jsp') ? 'active' : ''}">
-            <i class="bi bi-clipboard"></i>
-            Quản lý công việc
-        </a>
+            <a href="${contextPath}/tasks" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('tasks.jsp') ? 'active' : ''}">
+                <i class="bi bi-clipboard"></i>
+                Quản lý công việc
+            </a>
 
-        <a href="${contextPath}/users" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('users.jsp') ? 'active' : ''}">
-            <i class="bi bi-people"></i>
-            Quản lý người dùng
-        </a>
+            <a href="${contextPath}/users" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('users.jsp') ? 'active' : ''}">
+                <i class="bi bi-people"></i>
+                Quản lý người dùng
+            </a>
+        </c:if>
     </div>
 </div>
