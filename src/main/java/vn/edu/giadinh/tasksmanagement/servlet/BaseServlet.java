@@ -24,6 +24,7 @@ public class BaseServlet extends HttpServlet {
     // Static fields:
     public static final String HOME_VIEW_NAME = "index.jsp";
     public static final String LOGIN_VIEW_NAME = "login.jsp";
+    public static final String AUTH_PATH = "/auth";
 
     // Fields:
     protected SearchableDBHandler<User, String> userDBHandler;
@@ -193,5 +194,51 @@ public class BaseServlet extends HttpServlet {
 
     protected void visitHomeView(HttpHandler handler) {
         visitView(handler, HOME_VIEW_NAME);
+    }
+
+    protected boolean validateLogin(HttpHandler handler) throws SQLException {
+        if (!isLoggedIn(handler)) {
+            handler.redirect(handler.makeRelativePath(AUTH_PATH));
+            return false;
+        }
+
+        return true;
+    }
+
+    protected boolean validatePermission(HttpHandler handler, UserRole role) throws SQLException {
+        if (!hasPermission(handler, role)) {
+            handler.redirect(handler.makeRelativePath(AUTH_PATH));
+            return false;
+        }
+
+        return true;
+    }
+
+    protected boolean validateLogin(HttpHandler handler, String... messages) throws SQLException {
+        if (!isLoggedIn(handler)) {
+            if (!messages.isNullOrEmpty()) {
+                for (String message : messages) {
+                    handler.addMessage(message);
+                }
+            }
+            handler.forward(AUTH_PATH);
+            return false;
+        }
+
+        return true;
+    }
+
+    protected boolean validatePermission(HttpHandler handler, UserRole role, String... messages) throws SQLException {
+        if (!hasPermission(handler, role)) {
+            if (!messages.isNullOrEmpty()) {
+                for (String message : messages) {
+                    handler.addMessage(message);
+                }
+            }
+            handler.forward(AUTH_PATH);
+            return false;
+        }
+
+        return true;
     }
 }

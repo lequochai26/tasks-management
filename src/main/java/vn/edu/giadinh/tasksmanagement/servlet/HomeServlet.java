@@ -12,9 +12,8 @@ public class HomeServlet extends BaseServlet {
     // Methods:
     @Override
     protected void doGet(HttpHandler handler) throws Exception {
-        // Not logged in case
-        if (!isLoggedIn(handler)) {
-            handler.redirect(handler.makeRelativePath("/login"));
+        // Validate login
+        if (!validateLogin(handler)) {
             return;
         }
 
