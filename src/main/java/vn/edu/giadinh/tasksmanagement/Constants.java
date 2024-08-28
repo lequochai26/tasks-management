@@ -7,7 +7,8 @@ public class Constants {
     public static final String MSG_ACCESS_DENIED = "Bạn không có quyền truy cập vào trang này!";
     public static final String MSG_ALREADY_LOGGED_IN = "Bạn đã đăng nhập rồi!";
     public static final String MSG_USER_NOT_FOUND = "Tài khoản không tồn tại!";
-
+    public static final String MSG_USER_NOT_LOGGED_IN = "Bạn chưa đăng nhập!";
+    public static final String MSG_UPDATED_SUCCESSFULLY = "Cập nhật thành công!";
 
     // Constructors:
     private Constants() {}
