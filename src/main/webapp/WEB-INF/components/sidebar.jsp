@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <style>
     .sidebar-width {
         width: 225px;
@@ -22,7 +24,7 @@
             Khối công việc
         </p>
 
-        <a href="#" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('your-tasks.jsp') ? 'active' : ''}">
+        <a href="${contextPath}/your-tasks" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('your-tasks.jsp') ? 'active' : ''}">
             <i class="bi bi-clipboard"></i>
             Công việc của bạn
         </a>
@@ -31,12 +33,12 @@
             Khối quản lý
         </p>
 
-        <a href="#" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('tasks.jsp') ? 'active' : ''}">
+        <a href="${contextPath}/tasks" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('tasks.jsp') ? 'active' : ''}">
             <i class="bi bi-clipboard"></i>
             Quản lý công việc
         </a>
 
-        <a href="#" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('users.jsp') ? 'active' : ''}">
+        <a href="${contextPath}/users" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('users.jsp') ? 'active' : ''}">
             <i class="bi bi-people"></i>
             Quản lý người dùng
         </a>
