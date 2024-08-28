@@ -8,12 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <div class="w-100 h-100 d-flex flex-column" style="height: fit-content;">
 <%--    Action bar--%>
     <div class="d-flex flex-row border-bottom">
 <%--        Search area--%>
         <div style="width: fit-content;" class="p-3">
-            <form action="#" method="get">
+            <form action="${contextPath}/users-action" method="get">
                 <div class="input-group" style="width: 500px;">
                     <input type="text" name="keyword" class="form-control"
                            placeholder="Tên đăng nhập / vai trò / họ và tên"
