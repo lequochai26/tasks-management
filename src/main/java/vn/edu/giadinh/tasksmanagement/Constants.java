@@ -11,6 +11,7 @@ public class Constants {
     public static final String MSG_UPDATED_SUCCESSFULLY = "Cập nhật thành công!";
     public static final String MSG_INCORRECT_ROLE = "Vai trò người dùng cung cấp không hợp lệ!";
     public static final String MSG_USER_ALREADY_EXIST = "Người dùng này đã tồn tại!";
+    public static final String MSG_SELF_DELETE = "Không thể xóa chính mình!";
 
     // Constructors:
     private Constants() {}
