@@ -83,7 +83,8 @@
                             </button>
                             <button class="ms-2 btn btn-danger"
                                     data-bs-toggle="tooltip"
-                                    title="Xóa">
+                                    title="Xóa"
+                                    onclick="showModal('deleteUserModal-${user.username}')">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </td>
@@ -242,10 +243,50 @@
     </c:forEach>
 </c:if>
 
+<%-- Delete user confirm dialog --%>
+<c:if test="${not empty requestScope.users}">
+    <c:forEach items="${requestScope.users}" var="user">
+        <div class="modal fade" id="deleteUserModal-${user.username}">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                        <%--            Header--%>
+                    <div class="modal-header">
+                        <h4 class="modal-title">Cảnh báo</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                        <%--            Body--%>
+                    <div class="modal-body">
+                        Bạn có chắc muốn xóa người dùng ${user.username} không ?
+                    </div>
+
+                        <%--            Footer--%>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary"
+                                data-bs-dismiss="modal">
+                            Hủy
+                        </button>
+
+                        <a href="${contextPath}/users-action?action=delete&username=${user.username}">
+                            <button type="button" class="btn btn-danger ms-3">
+                                Có
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:forEach>
+</c:if>
 
 <script>
     function showEditUserModal(username) {
         const editUserModal = new bootstrap.Modal(document.getElementById("editUserModal-" + username));
         editUserModal.show();
+    }
+
+    function showModal(id) {
+        const modal = new bootstrap.Modal(document.getElementById(id));
+        modal.show();
     }
 </script>

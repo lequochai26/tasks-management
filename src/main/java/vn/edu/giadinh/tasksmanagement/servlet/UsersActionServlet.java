@@ -143,6 +143,42 @@ public class UsersActionServlet extends ActionBaseServlet {
         view(handler);
     }
 
+    @GetAction("delete")
+    public void delete(HttpHandler handler) throws Exception {
+        // No permission case
+        if (!validatePermission(handler, UserRole.ADMIN, Constants.MSG_ACCESS_DENIED)) {
+            return;
+        }
+
+        // Get and validate username
+        String username = handler.getParameter("username");
+        if (username.isNullOrEmpty()) {
+            handler.addMessage(Constants.MSG_INFORMATION_REQUIRED);
+            view(handler);
+            return;
+        }
+
+        User user = userDBHandler.get(username);
+        if (user == null) {
+            handler.addMessage(Constants.MSG_USER_NOT_FOUND);
+            view(handler);
+            return;
+        }
+
+        // Make sure performing user is not user to be deleted
+        if (user.getUsername().equals(handler.retrieveSession("user", String.class))) {
+            handler.addMessage(Constants.MSG_SELF_DELETE);
+            view(handler);
+            return;
+        }
+
+        // Delete user
+        userDBHandler.delete(user);
+
+        // Fallback to view
+        view(handler);
+    }
+
     // Private methods:
     private void showUsersView(HttpHandler handler) {
         showView(handler, VIEW_NAME);
