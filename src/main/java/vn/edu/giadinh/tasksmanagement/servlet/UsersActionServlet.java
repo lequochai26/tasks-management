@@ -95,6 +95,54 @@ public class UsersActionServlet extends ActionBaseServlet {
         view(handler);
     }
 
+    @PostAction("update")
+    public void update(HttpHandler handler) throws Exception {
+        // No permission case
+        if (!validatePermission(handler, UserRole.ADMIN, Constants.MSG_ACCESS_DENIED)) {
+            return;
+        }
+
+        // Get and validate username
+        String username = handler.getParameter("username");
+        if (username.isNullOrEmpty()) {
+            handler.addMessage(Constants.MSG_INFORMATION_REQUIRED);
+            view(handler);
+            return;
+        }
+
+        // Load user from db by given username
+        User user = userDBHandler.get(username);
+
+        // Check user exists
+        if (user == null) {
+            handler.addMessage(Constants.MSG_USER_NOT_FOUND);
+            view(handler);
+            return;
+        }
+
+        // Update informations
+        String password = handler.getParameter("password");
+        if (!password.isNullOrEmpty()) {
+            user.setPassword(AuthUtil.encrypt(password));
+        }
+
+        String fullName = handler.getParameter("fullName");
+        if (!fullName.isNullOrEmpty()) {
+            user.setFullName(fullName);
+        }
+
+        String role = handler.getParameter("role");
+        if (!role.isNullOrEmpty() && UserRole.from(role) != null) {
+            user.setRole(UserRole.from(role));
+        }
+
+        // Updating user
+        userDBHandler.update(user);
+
+        // Fall back to view
+        view(handler);
+    }
+
     // Private methods:
     private void showUsersView(HttpHandler handler) {
         showView(handler, VIEW_NAME);
