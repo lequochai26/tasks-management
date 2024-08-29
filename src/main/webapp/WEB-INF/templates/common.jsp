@@ -78,6 +78,19 @@
                 console.error( error );
             } );
     </script>
+
+<%--    Custom script--%>
+    <c:if test="${not empty requestScope.messages}">
+        <script>
+            $(document).ready(
+                () => {
+                    <c:forEach var="message" items="${requestScope.messages}">
+                        alert("${message}");
+                    </c:forEach>
+                }
+            );
+        </script>
+    </c:if>
 </head>
 
 <body>
