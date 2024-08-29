@@ -23,7 +23,7 @@ public class UserDBHandler implements ExistsCheckableDBHandler<User, String> {
     private static final String UPDATE_SQL = "UPDATE user\n" +
             " SET password=?, fullName=?, role=?\n" +
             " WHERE username=?";
-    private static final String DELETE_SQL = "DELETE user\n" +
+    private static final String DELETE_SQL = "DELETE FROM user\n" +
             " WHERE username=?";
     private static final String SEARCH_SQL = "SELECT * FROM user" +
             " WHERE username LIKE ? or fullName LIKE ?";
