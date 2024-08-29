@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ExtensionMethod(Extension.class)
-public class UserDBHandler implements SearchableDBHandler<User, String> {
+public class UserDBHandler implements ExistsCheckableDBHandler<User, String> {
     // Static fields:
     private static final String GET_SQL = "SELECT * FROM user\n" +
             " WHERE username=?";
@@ -23,10 +23,12 @@ public class UserDBHandler implements SearchableDBHandler<User, String> {
     private static final String UPDATE_SQL = "UPDATE user\n" +
             " SET password=?, fullName=?, role=?\n" +
             " WHERE username=?";
-    private static final String DELETE_SQL = "DELETE user\n" +
+    private static final String DELETE_SQL = "DELETE FROM user\n" +
             " WHERE username=?";
     private static final String SEARCH_SQL = "SELECT * FROM user" +
             " WHERE username LIKE ? or fullName LIKE ?";
+    private static final String EXISTS_SQL = "SELECT COUNT(username) FROM user\n" +
+            " WHERE username = ?";
 
     private static UserDBHandler instance;
 
@@ -205,6 +207,24 @@ public class UserDBHandler implements SearchableDBHandler<User, String> {
 
                     // Trả về danh sách người dùng
                     return users;
+                }
+        );
+    }
+
+    @Override
+    public boolean exists(String key) throws SQLException {
+        return DBUtil.executeQuery(
+                connection -> {
+                    PreparedStatement statement = connection.prepareStatement(EXISTS_SQL);
+                    statement.setString(1, key);
+
+                    ResultSet table = statement.executeQuery();
+
+                    if (!table.next()) {
+                        return false;
+                    }
+
+                    return table.getInt(1) > 0;
                 }
         );
     }

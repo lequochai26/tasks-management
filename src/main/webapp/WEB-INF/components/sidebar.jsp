@@ -39,7 +39,7 @@
                 Quản lý công việc
             </a>
 
-            <a href="${contextPath}/users" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('users.jsp') ? 'active' : ''}">
+            <a href="${contextPath}/users-action" class="list-group-item list-group-item-action ${pageContext.request.servletPath.endsWith('users.jsp') ? 'active' : ''}">
                 <i class="bi bi-people"></i>
                 Quản lý người dùng
             </a>

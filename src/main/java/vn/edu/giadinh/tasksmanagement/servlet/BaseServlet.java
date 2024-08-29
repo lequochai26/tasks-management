@@ -1,10 +1,7 @@
 package vn.edu.giadinh.tasksmanagement.servlet;
 
 import lombok.experimental.ExtensionMethod;
-import vn.edu.giadinh.tasksmanagement.daos.DBHandler;
-import vn.edu.giadinh.tasksmanagement.daos.SearchableDBHandler;
-import vn.edu.giadinh.tasksmanagement.daos.TaskDBHandler;
-import vn.edu.giadinh.tasksmanagement.daos.UserDBHandler;
+import vn.edu.giadinh.tasksmanagement.daos.*;
 import vn.edu.giadinh.tasksmanagement.enums.UserRole;
 import vn.edu.giadinh.tasksmanagement.models.Task;
 import vn.edu.giadinh.tasksmanagement.models.User;
@@ -27,7 +24,7 @@ public class BaseServlet extends HttpServlet {
     public static final String AUTH_PATH = "/auth";
 
     // Fields:
-    protected SearchableDBHandler<User, String> userDBHandler;
+    protected ExistsCheckableDBHandler<User, String> userDBHandler;
     protected DBHandler<Task, Integer> taskDBHandler;
 
     // Constructors:
