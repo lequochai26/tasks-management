@@ -107,62 +107,64 @@
 <div class="modal fade" id="addUserModal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-<%--            Header--%>
-            <div class="modal-header">
-                <h4 class="modal-title">Thêm người dùng</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-<%--            Body--%>
-            <div class="modal-body">
-<%--                Username input--%>
-                <div class="form-floating mb-3 mt-3">
-                    <input type="text" class="form-control"
-                           id="username"
-                           placeholder="Tên đăng nhập"
-                           name="username" />
-                    <label for="username">Tên đăng nhập</label>
+            <form action="${contextPath}/users-action?action=create" method="post">
+                <%--            Header--%>
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm người dùng</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
-<%--                Password input--%>
-                <div class="form-floating mb-3 mt-3">
-                    <input type="password" class="form-control"
-                           id="password"
-                           placeholder="Mật khẩu"
-                           name="password" />
-                    <label for="password">Mật khẩu</label>
+                <%--            Body--%>
+                <div class="modal-body">
+                    <%--                Username input--%>
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="text" class="form-control"
+                               id="username"
+                               placeholder="Tên đăng nhập"
+                               name="username" />
+                        <label for="username">Tên đăng nhập</label>
+                    </div>
+
+                    <%--                Password input--%>
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="password" class="form-control"
+                               id="password"
+                               placeholder="Mật khẩu"
+                               name="password" />
+                        <label for="password">Mật khẩu</label>
+                    </div>
+
+                    <%--                Fullname input--%>
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="text" class="form-control"
+                               id="fullName"
+                               placeholder="Họ và tên"
+                               name="fullName" />
+                        <label for="fullName">Họ và tên</label>
+                    </div>
+
+                    <%--                Role--%>
+                    <div class="mb-3">
+                        <select id="role" name="role" class="form-select py-3">
+                            <option value="DEVELOPER">Lập trình viên</option>
+                            <option value="QUALITY_CONTROL">Kiểm thử viên</option>
+                            <option value="ADMIN">Quản lý</option>
+                        </select>
+                    </div>
                 </div>
 
-<%--                Fullname input--%>
-                <div class="form-floating mb-3 mt-3">
-                    <input type="text" class="form-control"
-                           id="fullName"
-                           placeholder="Họ và tên"
-                           name="fullName" />
-                    <label for="fullName">Họ và tên</label>
+                <%--            Footer--%>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger"
+                            data-bs-dismiss="modal">
+                        Hủy
+                    </button>
+
+                    <button type="submit" class="btn btn-success btn-add ms-3">
+                        Thêm
+                    </button>
                 </div>
-
-<%--                Role--%>
-                <div class="mb-3">
-                    <select id="role" name="role" class="form-select py-3">
-                        <option value="DEVELOPER">Lập trình viên</option>
-                        <option value="QUALITY_CONTROL">Kiểm thử viên</option>
-                        <option value="ADMIN">Quản lý</option>
-                    </select>
-                </div>
-            </div>
-
-<%--            Footer--%>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger"
-                        data-bs-dismiss="modal">
-                    Hủy
-                </button>
-
-                <button type="button" class="btn btn-success btn-add ms-3">
-                    Thêm
-                </button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
