@@ -4,10 +4,6 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <style>
-    #header-title a {
-        text-decoration: none;
-    }
-
     #header-title a h3 {
         margin-bottom: 0;
         margin-top: 0;

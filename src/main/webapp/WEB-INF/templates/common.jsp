@@ -22,6 +22,10 @@
             background-color: #0eb90f;
             border-color: #0eb90f;
         }
+
+        a {
+            text-decoration: none;
+        }
     </style>
 
 <%--    CKEditor--%>
