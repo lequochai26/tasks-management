@@ -25,7 +25,7 @@ public class BaseServlet extends HttpServlet {
 
     // Fields:
     protected ExistsCheckableDBHandler<User, String> userDBHandler;
-    protected DBHandler<Task, Integer> taskDBHandler;
+    protected ITaskDBHandler taskDBHandler;
 
     // Constructors:
     public BaseServlet() {
