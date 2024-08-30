@@ -9,12 +9,12 @@
     <title>Quản lý công việc</title>
 
 <%--    Bootstrap--%>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="${contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="${contextPath}/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link href="${contextPath}/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
 <%--    JQuery--%>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="${contextPath}/jquery-3.7.1.min.js"></script>
 
 <%--    CSS--%>
     <style>
@@ -91,6 +91,14 @@
             );
         </script>
     </c:if>
+
+<%--    Modal interaction scripts--%>
+    <script>
+        function showModal(id) {
+            const modal = new bootstrap.Modal(document.getElementById(id));
+            modal.show();
+        }
+    </script>
 </head>
 
 <body>
