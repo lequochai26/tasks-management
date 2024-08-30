@@ -9,6 +9,7 @@ import vn.edu.giadinh.tasksmanagement.enums.TaskStatus;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Task {
     // Fields:
     private int id;
