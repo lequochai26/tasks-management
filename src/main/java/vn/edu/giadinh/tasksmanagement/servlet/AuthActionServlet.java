@@ -22,7 +22,7 @@ public class AuthActionServlet extends ActionBaseServlet {
         // Logged in case
         if (isLoggedIn(handler)) {
             // Forward back to home page
-            handler.addMessage(Constants.MSG_ALREADY_LOGGED_IN);
+//            handler.addMessage(Constants.MSG_ALREADY_LOGGED_IN);
             showHomeView(handler);
 
             // Exit the flow
