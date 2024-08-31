@@ -94,7 +94,7 @@ public class HttpHandler {
 
     public String makeRelativePath(String path) {
         return safeSupply(
-                () -> getContextPath() + path
+                () -> (getContextPath() + "/" + path).replace("//", "/")
         );
     }
 

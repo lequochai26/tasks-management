@@ -38,7 +38,7 @@ public class TaskConverter implements Converter<Task> {
 
         // Chuyển đổi các chuỗi sang các enums
         TaskStatus status = TaskStatus.valueOf(statusStr);
-        TaskProgress progress = TaskProgress.valueOf(progressStr);
+        TaskProgress progress = TaskProgress.from(progressStr);
 
         // Tạo đối tượng Task từ dữ liệu đã có
         return Task.builder()
