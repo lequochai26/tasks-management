@@ -46,16 +46,29 @@
             Bold,
             Italic,
             Font,
-            Strikethrough
+            Strikethrough,
+            Subscript,
+            Superscript,
+            Code,
+            Heading,
+            Link,
+            AutoLink,
+            BlockQuote,
+            CodeBlock,
+            Alignment,
+            List,
+            TodoList,
+            Indent,
+            IndentBlock
         } from 'ckeditor5';
 
         ClassicEditor
             .create( document.querySelector( '.use-ckeditor' ), {
-                plugins: [ Essentials, Paragraph, Bold, Italic, Font, Strikethrough ],
-                // toolbar: [
-                //     'undo', 'redo', '|', 'bold', 'italic', '|',
-                //     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
-                // ]
+                plugins: [
+                    Essentials, Paragraph, Bold, Italic, Font, Strikethrough, Heading, Subscript, Superscript,
+                    Code, Link, AutoLink, BlockQuote, CodeBlock, Alignment, List, TodoList,
+                    Indent, IndentBlock
+                ],
                 toolbar: {
                     items: [
                         'undo', 'redo',
@@ -66,11 +79,11 @@
                         '|',
                         'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
                         '|',
-                        'link', 'uploadImage', 'blockQuote', 'codeBlock',
+                        'link', 'blockQuote', 'codeBlock',
                         '|',
                         'alignment',
                         '|',
-                        'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+                        'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent',
                     ],
                     shouldNotGroupWhenFull: true
                 }
