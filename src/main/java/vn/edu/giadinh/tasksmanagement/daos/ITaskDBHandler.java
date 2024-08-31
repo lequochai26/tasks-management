@@ -9,4 +9,5 @@ public interface ITaskDBHandler extends ExistsCheckableDBHandler<Task, Integer> 
     List<Task> getByResponsibility(String responsibility) throws SQLException;
     List<Task> getByTester(String tester) throws SQLException;
     List<Task> getByUser(String username) throws SQLException;
+    Task create(Task target) throws SQLException;
 }
