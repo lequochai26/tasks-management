@@ -14,6 +14,7 @@ public class Constants {
     public static final String MSG_SELF_DELETE = "Không thể xóa chính mình!";
     public static final String MSG_TASK_ID_INVALID = "Mã công việc không hợp lệ!";
     public static final String MSG_TASK_NOT_EXIST = "Công việc không tồn tại!";
+    public static final String MSG_TASK_STATUS_INVALID = "Trạng thái công việc không hợp lệ!";
 
     // Constructors:
     private Constants() {}
