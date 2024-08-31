@@ -17,7 +17,8 @@ public enum TaskProgress {
     TEST_SUCCESS;
 
     // Static fields:
-    public static final List<TaskProgress> allValues = Arrays.stream(TaskProgress.values()).toList();
+    public static final List<TaskProgress> allValues = Arrays.stream(TaskProgress.values())
+            .collect(Collectors.toList());
 
     // Methods:
     public static TaskProgress from(String name) {
