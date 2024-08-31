@@ -10,6 +10,7 @@ import vn.edu.giadinh.tasksmanagement.utils.Extension;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 @ExtensionMethod(Extension.class)
@@ -224,6 +225,44 @@ public class TaskDBHandler implements ITaskDBHandler {
 
                     return TasksListConverter.getInstance()
                             .convert(table);
+                }
+        );
+    }
+
+    @Override
+    public Task create(Task target) throws SQLException {
+        return DBUtil.executeQuery(
+                connection -> {
+                    PreparedStatement statement = connection.prepareStatement(INSERT_SQL, PreparedStatement.RETURN_GENERATED_KEYS);
+                    statement.setString(1, target.getTitle());
+                    statement.setString(2, target.getDescription());
+
+                    if (target.getStatus() != null) {
+                        statement.setString(3, target.getStatus().name());
+                    }
+                    else {
+                        statement.setNull(3, Types.VARCHAR);
+                    }
+
+                    if (target.getProgress() != null) {
+                        statement.setString(4, target.getProgress().name());
+                    }
+                    else {
+                        statement.setNull(4, Types.VARCHAR);
+                    }
+
+                    statement.setString(5, target.getResponsibility());
+                    statement.setString(6, target.getTester());
+
+                    statement.executeUpdate();
+
+                    ResultSet generatedKeys = statement.getGeneratedKeys();
+
+                    if (!generatedKeys.next()) {
+                        return null;
+                    }
+
+                    return get(generatedKeys.getInt(1));
                 }
         );
     }
