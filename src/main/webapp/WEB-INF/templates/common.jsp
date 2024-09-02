@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="messages" value="${requestScope.messages}" />
 
 <!DOCTYPE html>
 <html>
@@ -25,6 +26,33 @@
 
         a {
             text-decoration: none;
+        }
+
+        .WARNING {
+            display: inline-block;
+            margin-right: 10px;
+            background-color: gold;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+        }
+
+        .ERROR {
+            display: inline-block;
+            margin-right: 10px;
+            background-color: red;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+        }
+
+        .INFO {
+            display: inline-block;
+            margin-right: 10px;
+            background-color: dodgerblue;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
         }
     </style>
 
@@ -96,19 +124,6 @@
             } );
     </script>
 
-<%--    Custom script--%>
-    <c:if test="${not empty requestScope.messages}">
-        <script>
-            $(document).ready(
-                () => {
-                    <c:forEach var="message" items="${requestScope.messages}">
-                        alert("${message}");
-                    </c:forEach>
-                }
-            );
-        </script>
-    </c:if>
-
 <%--    Modal interaction scripts--%>
     <script>
         function showModal(id) {
@@ -161,6 +176,24 @@
 
 <%-- User setting dialog --%>
 <jsp:include page="../components/user-setting-dialog.jsp" />
+
+<%-- Toasts display --%>
+<c:if test="${not empty messages}">
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <c:forEach var="message" items="${messages}">
+            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <i class="${message.type.name()}"></i>
+                    <strong class="me-auto">${message.type.title}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    ${message.content}
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+</c:if>
 
 </body>
 </html>

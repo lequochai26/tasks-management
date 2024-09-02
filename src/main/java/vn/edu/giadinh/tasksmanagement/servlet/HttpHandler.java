@@ -99,18 +99,7 @@ public class HttpHandler {
     }
 
     public void addMessage(String message) {
-        safeExecute(
-                () -> {
-                    List<String> messages = retrieveRequest("messages", List.class);
-
-                    if (messages.isNullOrEmpty()) {
-                        messages = new ArrayList<>();
-                        putRequest("messages", messages);
-                    }
-
-                    messages.add(message);
-                }
-        );
+        addMessage(Message.Type.INFO, message);
     }
 
     public Object retrieveRequest(String key) {
@@ -176,5 +165,24 @@ public class HttpHandler {
         return safeSupply(
                 () -> request.getHeader(key)
         );
+    }
+
+    public void addMessage(Message message) {
+        safeExecute(
+                () -> {
+                    List<Message> messages = retrieveRequest("messages", List.class);
+
+                    if (messages.isNullOrEmpty()) {
+                        messages = new ArrayList<>();
+                        putRequest("messages", messages);
+                    }
+
+                    messages.add(message);
+                }
+        );
+    }
+
+    public void addMessage(Message.Type type, String content) {
+        addMessage(new Message(content, type));
     }
 }
