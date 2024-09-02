@@ -57,12 +57,12 @@ public class UsersActionServlet extends ActionBaseServlet {
         String fullName = handler.getParameter("fullName");
         String role = handler.getParameter("role");
         if (username.isNullOrEmpty() || password.isNullOrEmpty() || role.isNullOrEmpty()) {
-            handler.addMessage(Constants.MSG_INFORMATION_REQUIRED);
+            handler.addMessage(Message.Type.WARNING, Constants.MSG_INFORMATION_REQUIRED);
             view(handler);
             return;
         }
         if (UserRole.from(role) == null) {
-            handler.addMessage(Constants.MSG_INCORRECT_ROLE);
+            handler.addMessage(Message.Type.WARNING, Constants.MSG_INCORRECT_ROLE);
             view(handler);
             return;
         }
@@ -72,7 +72,7 @@ public class UsersActionServlet extends ActionBaseServlet {
 
         // Check if username exists
         if (userDBHandler.exists(username)) {
-            handler.addMessage(Constants.MSG_USER_ALREADY_EXIST);
+            handler.addMessage(Message.Type.WARNING, Constants.MSG_USER_ALREADY_EXIST);
             view(handler);
             return;
         }
@@ -105,7 +105,7 @@ public class UsersActionServlet extends ActionBaseServlet {
         // Get and validate username
         String username = handler.getParameter("username");
         if (username.isNullOrEmpty()) {
-            handler.addMessage(Constants.MSG_INFORMATION_REQUIRED);
+            handler.addMessage(Message.Type.WARNING, Constants.MSG_INFORMATION_REQUIRED);
             view(handler);
             return;
         }
@@ -115,7 +115,7 @@ public class UsersActionServlet extends ActionBaseServlet {
 
         // Check user exists
         if (user == null) {
-            handler.addMessage(Constants.MSG_USER_NOT_FOUND);
+            handler.addMessage(Message.Type.WARNING, Constants.MSG_USER_NOT_FOUND);
             view(handler);
             return;
         }
@@ -153,21 +153,21 @@ public class UsersActionServlet extends ActionBaseServlet {
         // Get and validate username
         String username = handler.getParameter("username");
         if (username.isNullOrEmpty()) {
-            handler.addMessage(Constants.MSG_INFORMATION_REQUIRED);
+            handler.addMessage(Message.Type.WARNING, Constants.MSG_INFORMATION_REQUIRED);
             view(handler);
             return;
         }
 
         User user = userDBHandler.get(username);
         if (user == null) {
-            handler.addMessage(Constants.MSG_USER_NOT_FOUND);
+            handler.addMessage(Message.Type.WARNING, Constants.MSG_USER_NOT_FOUND);
             view(handler);
             return;
         }
 
         // Make sure performing user is not user to be deleted
         if (user.getUsername().equals(handler.retrieveSession("user", String.class))) {
-            handler.addMessage(Constants.MSG_SELF_DELETE);
+            handler.addMessage(Message.Type.WARNING, Constants.MSG_SELF_DELETE);
             view(handler);
             return;
         }

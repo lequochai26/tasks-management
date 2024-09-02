@@ -27,8 +27,7 @@ public class TaskDetailServlet extends ActionBaseServlet {
     }
 
     // Methods:
-    @GetDefaultAction
-    public void view(HttpHandler handler) throws Exception {
+    public void view(HttpHandler handler, String id) throws Exception {
         // Login validation
         if (!validateLogin(handler, Constants.MSG_ACCESS_DENIED)) {
             return;
@@ -50,9 +49,6 @@ public class TaskDetailServlet extends ActionBaseServlet {
 
             handler.putRequest("users", groupedUsers);
         }
-
-        // Get id parameter
-        String id = handler.getParameter("id");
 
         // Create task case
         if (id.isNullOrEmpty()) {
@@ -197,7 +193,7 @@ public class TaskDetailServlet extends ActionBaseServlet {
         handler.addMessage("Tạo công việc thành công!");
 
         // Visit view
-        visitView(handler, "/task-detail", "id=" + createdTask.getId());
+        view(handler, "" + createdTask.getId());
     }
 
     private void update(HttpHandler handler, Task task) throws Exception {
@@ -231,7 +227,7 @@ public class TaskDetailServlet extends ActionBaseServlet {
 
         handler.addMessage("Lưu công việc thành công!");
 
-        visitView(handler, "task-detail", "id=" + task.getId());
+        view(handler, "" + task.getId());
     }
 
     @GetAction("changeStatus")
@@ -283,5 +279,12 @@ public class TaskDetailServlet extends ActionBaseServlet {
             taskDBHandler.update(task);
             visitView(handler, "task-detail", "id=" + task.getId());
         }
+    }
+
+    @GetDefaultAction
+    public void view(HttpHandler handler) throws Exception {
+        String id = handler.getParameter("id");
+
+        view(handler, id);
     }
 }

@@ -38,7 +38,7 @@ public class AuthActionServlet extends ActionBaseServlet {
         // Not logged in case
         if (!isLoggedIn(handler)) {
             // Add message
-            handler.addMessage(Constants.MSG_USER_NOT_LOGGED_IN);
+            handler.addMessage(Message.Type.WARNING, Constants.MSG_USER_NOT_LOGGED_IN);
         }
         // Logged in case
         else {
@@ -58,7 +58,7 @@ public class AuthActionServlet extends ActionBaseServlet {
 
         // Username or password null case
         if (username.isNullOrEmpty() || password.isNullOrEmpty()) {
-            handler.addMessage(Constants.MSG_INFORMATION_REQUIRED);
+            handler.addMessage(Message.Type.WARNING, Constants.MSG_INFORMATION_REQUIRED);
             showLoginView(handler);
             return;
         }
@@ -69,7 +69,7 @@ public class AuthActionServlet extends ActionBaseServlet {
         // User not found case
         user.ifNull(
                 () -> {
-                    handler.addMessage(Constants.MSG_USER_NOT_FOUND);
+                    handler.addMessage(Message.Type.WARNING, Constants.MSG_LOGIN_INVALID);
                     showLoginView(handler);
                 }
         );
@@ -79,7 +79,7 @@ public class AuthActionServlet extends ActionBaseServlet {
                 () -> {
                     // Incorrect password case
                     if (!AuthUtil.check(password, user.getPassword())) {
-                        handler.addMessage(Constants.MSG_LOGIN_INVALID);
+                        handler.addMessage(Message.Type.WARNING, Constants.MSG_LOGIN_INVALID);
                         showLoginView(handler);
                         return;
                     }
