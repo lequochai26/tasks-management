@@ -27,15 +27,43 @@ public class TasksServlet extends ActionBaseServlet {
     @GetDefaultAction
     public void view(HttpHandler handler) throws Exception {
         // No permission
-        if (!validatePermission(handler, UserRole.ADMIN, Constants.MSG_ACCESS_DENIED)) {
+        if (!validateLogin(handler, Constants.MSG_ACCESS_DENIED)) {
             return;
         }
+
+        // Get logged in user
+        User user = getLoggedInUser(handler);
 
         // Get keyword parameter
         String keyword = handler.getParameter("keyword");
 
         // Search tasks
-        List<Task> tasks = taskDBHandler.search(keyword);
+        List<Task> tasks = null;
+        if (UserRole.ADMIN.equals(user.getRole())) {
+            tasks = taskDBHandler.search(keyword);
+        }
+        else {
+            tasks = taskDBHandler.getByUser(user.getUsername());
+
+            // Filter with keyword
+            if (!tasks.isNullOrEmpty() && !keyword.isNullOrEmpty()) {
+                tasks = tasks.stream()
+                        .filter(
+                                Objects::nonNull
+                        )
+                        .filter(
+                                t -> ("" + t.getId()).contains(keyword.toLowerCase()) || (
+                                        !t.getTitle().isNullOrEmpty() && t.getTitle().toLowerCase().contains(keyword.toLowerCase())
+                                )
+                        )
+                        .collect(Collectors.toList());
+            }
+        }
+
+        // Check and make sure tasks variable can't be null
+        if (tasks.isNullOrEmpty()) {
+            tasks = new ArrayList<>();
+        }
 
         // Find neccessary users
         Map<String, User> users = tasks.stream()
@@ -63,7 +91,7 @@ public class TasksServlet extends ActionBaseServlet {
                         throw new RuntimeException(e);
                     }
                 })
-                .collect(Collectors.toMap(User::getUsername, user -> user));
+                .collect(Collectors.toMap(User::getUsername, u -> u));
 
         // Put request
         handler.putRequest("tasks", tasks);
