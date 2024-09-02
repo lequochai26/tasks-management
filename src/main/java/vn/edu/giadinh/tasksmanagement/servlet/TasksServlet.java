@@ -134,6 +134,9 @@ public class TasksServlet extends ActionBaseServlet {
                         .build()
         );
 
+        // Show message
+        handler.addMessage("Xóa công việc thành công");
+
         // Show view
         view(handler);
     }

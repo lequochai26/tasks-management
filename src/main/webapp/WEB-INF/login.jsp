@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="messages" value="${requestScope.messages}" />
 
 <html>
 <head>
@@ -27,20 +28,34 @@
         h3 {
             margin: 0;
         }
-    </style>
 
-<%--    Messages alerting script--%>
-    <script>
-        $(document).ready(
-            () => {
-                <c:if test="${not empty requestScope.messages}">
-                    <c:forEach var="message" items="${requestScope.messages}">
-                        alert("${message}");
-                    </c:forEach>
-                </c:if>
-            }
-        )
-    </script>
+        .WARNING {
+            display: inline-block;
+            margin-right: 10px;
+            background-color: gold;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+        }
+
+        .ERROR {
+            display: inline-block;
+            margin-right: 10px;
+            background-color: red;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+        }
+
+        .INFO {
+            display: inline-block;
+            margin-right: 10px;
+            background-color: dodgerblue;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="vw-100 vh-100 d-flex align-items-center justify-content-center">
@@ -81,5 +96,23 @@
             </form>
         </div>
     </div>
+
+    <%-- Toasts display --%>
+    <c:if test="${not empty messages}">
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            <c:forEach var="message" items="${messages}">
+                <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <i class="${message.type.name()}"></i>
+                        <strong class="me-auto">${message.type.title}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                            ${message.content}
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </c:if>
 </body>
 </html>

@@ -46,6 +46,7 @@ public class BaseServlet extends HttpServlet {
                     try {
                         doGet(handler);
                     } catch (Exception e) {
+                        handler.addMessage(Message.Type.ERROR, e.getMessage());
                         throw new RuntimeException(e);
                     }
                 },
@@ -64,6 +65,7 @@ public class BaseServlet extends HttpServlet {
                     try {
                         doPost(handler);
                     } catch (Exception e) {
+                        handler.addMessage(Message.Type.ERROR, e.getMessage());
                         throw new RuntimeException(e);
                     }
                 },
@@ -82,6 +84,7 @@ public class BaseServlet extends HttpServlet {
                     try {
                         doPut(handler);
                     } catch (Exception e) {
+                        handler.addMessage(Message.Type.ERROR, e.getMessage());
                         throw new RuntimeException(e);
                     }
                 },
@@ -100,6 +103,7 @@ public class BaseServlet extends HttpServlet {
                     try {
                         doDelete(handler);
                     } catch (Exception e) {
+                        handler.addMessage(Message.Type.ERROR, e.getMessage());
                         throw new RuntimeException(e);
                     }
                 },
@@ -223,7 +227,7 @@ public class BaseServlet extends HttpServlet {
         if (!isLoggedIn(handler)) {
             if (!messages.isNullOrEmpty()) {
                 for (String message : messages) {
-                    handler.addMessage(message);
+                    handler.addMessage(new Message(message, Message.Type.WARNING));
                 }
             }
             handler.forward(AUTH_PATH);
@@ -237,7 +241,7 @@ public class BaseServlet extends HttpServlet {
         if (!hasPermission(handler, role)) {
             if (!messages.isNullOrEmpty()) {
                 for (String message : messages) {
-                    handler.addMessage(message);
+                    handler.addMessage(new Message(message, Message.Type.WARNING));
                 }
             }
             handler.forward(AUTH_PATH);
