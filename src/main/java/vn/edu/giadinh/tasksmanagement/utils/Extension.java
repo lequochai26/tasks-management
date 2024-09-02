@@ -49,4 +49,8 @@ public class Extension {
     public boolean canConvertToInt(String target) {
         return StringUtil.canConvertToInt(target);
     }
+
+    public <T> T ifNotNullSupply(Object target, Supplier<T> supplier) {
+        return ObjectUtil.ifNotNullSupply(target, supplier);
+    }
 }
