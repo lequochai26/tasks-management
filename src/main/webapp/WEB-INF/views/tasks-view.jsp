@@ -32,12 +32,14 @@
 
 <%--            Add task button--%>
             <div class="col-8 text-end">
-                <a href="${contextPath}/task-detail">
-                    <button class="btn btn-success btn-add">
-                        <i class="bi bi-plus"></i>
-                        Thêm công việc
-                    </button>
-                </a>
+                <c:if test="${not empty requestScope.user and requestScope.user.role.name() eq 'ADMIN'}">
+                    <a href="${contextPath}/task-detail">
+                        <button class="btn btn-success btn-add">
+                            <i class="bi bi-plus"></i>
+                            Thêm công việc
+                        </button>
+                    </a>
+                </c:if>
             </div>
         </div>
     </div>
@@ -133,12 +135,14 @@
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </a>
-                            <button class="btn btn-danger me-3"
-                                    data-bs-toggle="tooltip"
-                                    onclick="showModal('deleteTaskModal-${task.id}')"
-                                    title="Xóa">
-                                <i class="bi bi-trash"></i>
-                            </button>
+                            <c:if test="${not empty requestScope.user and requestScope.user.role.name() eq 'ADMIN'}">
+                                <button class="btn btn-danger me-3"
+                                        data-bs-toggle="tooltip"
+                                        onclick="showModal('deleteTaskModal-${task.id}')"
+                                        title="Xóa">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>

@@ -17,8 +17,10 @@ import java.util.List;
 public class TaskDBHandler implements ITaskDBHandler {
     // Static fields:
     public static final String GET_SQL = "SELECT * FROM task" +
-            " WHERE id=?";
-    public static final String GET_ALL_SQL = "SELECT * FROM task";
+            " WHERE id=?" +
+            " ORDER BY id DESC";
+    public static final String GET_ALL_SQL = "SELECT * FROM task" +
+            " ORDER BY id DESC";
     public static final String INSERT_SQL = "INSERT INTO task(title, description, status, progress, responsibility, tester)" +
             " VALUES(?, ?, ?, ?, ?, ?)";
     public static final String UPDATE_SQL = "UPDATE task" +
@@ -27,15 +29,19 @@ public class TaskDBHandler implements ITaskDBHandler {
     public static final String DELETE_SQL = "DELETE FROM task" +
             " WHERE id=?";
     public static final String SEARCH_SQL = "SELECT * FROM task" +
-            " WHERE id=? OR title LIKE ?";
+            " WHERE id=? OR title LIKE ?" +
+            " ORDER BY id DESC";
     public static final String EXISTS_SQL = "SELECT COUNT(*) FROM task" +
             " WHERE id=?";
     public static final String GET_BY_RESPONSIBILITY_SQL = "SELECT * FROM task" +
-            " WHERE responsibility=?";
+            " WHERE responsibility=?" +
+            " ORDER BY id DESC";
     public static final String GET_BY_TESTER_SQL = "SELECT * FROM task" +
-            " WHERE tester=?";
+            " WHERE tester=?" +
+            " ORDER BY id DESC";
     public static final String GET_BY_USER_SQL = "SELECT * FROM task" +
-            " WHERE tester=? OR responsibility=?";
+            " WHERE tester=? OR responsibility=?" +
+            " ORDER BY id DESC";
 
     private static TaskDBHandler instance;
 
@@ -98,8 +104,16 @@ public class TaskDBHandler implements ITaskDBHandler {
                     PreparedStatement statement = connection.prepareStatement(INSERT_SQL);
                     statement.setString(1, target.getTitle());
                     statement.setString(2, target.getDescription());
-                    statement.setString(3, target.getStatus().name());
-                    statement.setString(4, target.getProgress().name());
+                    statement.setString(
+                            3,
+                            target.getStatus()
+                                    .ifNotNullSupply(() -> target.getStatus().name())
+                    );
+                    statement.setString(
+                            4,
+                            target.getProgress()
+                                    .ifNotNullSupply(() -> target.getStatus().name())
+                    );
                     statement.setString(5, target.getResponsibility());
                     statement.setString(6, target.getTester());
 
@@ -115,8 +129,16 @@ public class TaskDBHandler implements ITaskDBHandler {
                     PreparedStatement statement = connection.prepareStatement(UPDATE_SQL);
                     statement.setString(1, target.getTitle());
                     statement.setString(2, target.getDescription());
-                    statement.setString(3, target.getStatus().name());
-                    statement.setString(4, target.getProgress().name());
+                    statement.setString(
+                            3,
+                            target.getStatus()
+                                    .ifNotNullSupply(() -> target.getStatus().name())
+                    );
+                    statement.setString(
+                            4,
+                            target.getProgress()
+                                    .ifNotNullSupply(() -> target.getProgress().name())
+                    );
                     statement.setString(5, target.getResponsibility());
                     statement.setString(6, target.getTester());
                     statement.setInt(7, target.getId());
