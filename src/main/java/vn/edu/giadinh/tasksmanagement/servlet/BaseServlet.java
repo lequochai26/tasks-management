@@ -25,7 +25,7 @@ public class BaseServlet extends HttpServlet {
 
     // Fields:
     protected ExistsCheckableDBHandler<User, String> userDBHandler;
-    protected DBHandler<Task, Integer> taskDBHandler;
+    protected ITaskDBHandler taskDBHandler;
 
     // Constructors:
     public BaseServlet() {
@@ -37,6 +37,8 @@ public class BaseServlet extends HttpServlet {
     // Methods:
     @Override
     protected final void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+
         HttpHandler handler = generateHandler(req, resp);
 
         safeExecute(
@@ -53,6 +55,8 @@ public class BaseServlet extends HttpServlet {
 
     @Override
     protected final void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+
         HttpHandler handler = generateHandler(req, resp);
 
         safeExecute(
@@ -69,6 +73,8 @@ public class BaseServlet extends HttpServlet {
 
     @Override
     protected final void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+
         HttpHandler handler = generateHandler(req, resp);
 
         safeExecute(
@@ -85,6 +91,8 @@ public class BaseServlet extends HttpServlet {
 
     @Override
     protected final void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+
         HttpHandler handler = generateHandler(req, resp);
 
         safeExecute(
@@ -186,7 +194,7 @@ public class BaseServlet extends HttpServlet {
     }
 
     protected void visitView(HttpHandler handler, String view) {
-        handler.redirect(getViewUrl(view));
+        handler.redirect(handler.makeRelativePath(view));
     }
 
     protected void visitHomeView(HttpHandler handler) {
@@ -237,5 +245,9 @@ public class BaseServlet extends HttpServlet {
         }
 
         return true;
+    }
+
+    protected void visitView(HttpHandler handler, String view, String parameters) {
+        handler.redirect(handler.makeRelativePath(view) + "?" + parameters);
     }
 }

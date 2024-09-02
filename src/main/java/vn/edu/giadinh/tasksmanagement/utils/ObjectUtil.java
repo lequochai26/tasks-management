@@ -21,4 +21,12 @@ public class ObjectUtil {
             throw e;
         }
     }
+
+    public <T> T ifNotNullSupply(Object target, Supplier<T> supplier) {
+        if (target == null) {
+            return null;
+        }
+
+        return supplier.supply();
+    }
 }

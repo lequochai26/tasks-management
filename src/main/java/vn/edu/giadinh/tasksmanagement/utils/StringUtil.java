@@ -11,4 +11,8 @@ public class StringUtil {
 
         return target.isEmpty();
     }
+
+    public boolean canConvertToInt(String target) {
+        return !isNullOrEmpty(target) && target.matches("\\d+");
+    }
 }

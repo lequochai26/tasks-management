@@ -45,4 +45,12 @@ public class Extension {
     public <T> T findOrThrow(T[] arr, Predicator<T> predicator, RuntimeException e) {
         return ArrayUtil.findOrThrow(arr, predicator, e);
     }
+
+    public boolean canConvertToInt(String target) {
+        return StringUtil.canConvertToInt(target);
+    }
+
+    public <T> T ifNotNullSupply(Object target, Supplier<T> supplier) {
+        return ObjectUtil.ifNotNullSupply(target, supplier);
+    }
 }

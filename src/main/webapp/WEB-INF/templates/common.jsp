@@ -9,18 +9,22 @@
     <title>Quản lý công việc</title>
 
 <%--    Bootstrap--%>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="${contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="${contextPath}/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link href="${contextPath}/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
 <%--    JQuery--%>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="${contextPath}/jquery-3.7.1.min.js"></script>
 
 <%--    CSS--%>
     <style>
         .btn-add {
             background-color: #0eb90f;
             border-color: #0eb90f;
+        }
+
+        a {
+            text-decoration: none;
         }
     </style>
 
@@ -42,16 +46,29 @@
             Bold,
             Italic,
             Font,
-            Strikethrough
+            Strikethrough,
+            Subscript,
+            Superscript,
+            Code,
+            Heading,
+            Link,
+            AutoLink,
+            BlockQuote,
+            CodeBlock,
+            Alignment,
+            List,
+            TodoList,
+            Indent,
+            IndentBlock
         } from 'ckeditor5';
 
         ClassicEditor
             .create( document.querySelector( '.use-ckeditor' ), {
-                plugins: [ Essentials, Paragraph, Bold, Italic, Font, Strikethrough ],
-                // toolbar: [
-                //     'undo', 'redo', '|', 'bold', 'italic', '|',
-                //     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
-                // ]
+                plugins: [
+                    Essentials, Paragraph, Bold, Italic, Font, Strikethrough, Heading, Subscript, Superscript,
+                    Code, Link, AutoLink, BlockQuote, CodeBlock, Alignment, List, TodoList,
+                    Indent, IndentBlock
+                ],
                 toolbar: {
                     items: [
                         'undo', 'redo',
@@ -62,11 +79,11 @@
                         '|',
                         'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
                         '|',
-                        'link', 'uploadImage', 'blockQuote', 'codeBlock',
+                        'link', 'blockQuote', 'codeBlock',
                         '|',
                         'alignment',
                         '|',
-                        'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+                        'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent',
                     ],
                     shouldNotGroupWhenFull: true
                 }
@@ -91,6 +108,14 @@
             );
         </script>
     </c:if>
+
+<%--    Modal interaction scripts--%>
+    <script>
+        function showModal(id) {
+            const modal = new bootstrap.Modal(document.getElementById(id));
+            modal.show();
+        }
+    </script>
 </head>
 
 <body>
