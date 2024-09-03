@@ -16,6 +16,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
+                bat 'docker rmi lequochai26/tasks-management:1000'
                 bat 'docker build . -t lequochai26/tasks-management:1000'
             }
         }
